@@ -7,7 +7,7 @@ import {
   findIconDefinition,
 } from "@fortawesome/fontawesome-svg-core";
 
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { useMatch } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -65,7 +65,7 @@ const Search = styled.span`
   display: flex;
   align-items: center;
   svg {
-    height: 18px;
+    height: 17px;
   }
 `;
 
@@ -88,6 +88,14 @@ const Circle = styled(motion.span)`
 
 const Input = styled(motion.input)`
   transform-origin: right center;
+  position: relative;
+  right: 0px;
+  padding-left: 30px;
+  z-index: -1;
+  color: white;
+  font-size: 16px;
+  background-color: transparent;
+  border: 1px solid ${(props) => props.theme.white.lighter};
 `;
 
 const logoVariants = {
@@ -119,7 +127,18 @@ function Header() {
 
   const [searchOpen, setSearchOpen] = useState(false);
 
+  const inputAnimation = useAnimation();
+
   const openSearchBar = () => {
+    if (searchOpen) {
+      inputAnimation.start({
+        scaleX: 0,
+      });
+    } else {
+      inputAnimation.start({
+        scaleX: 1,
+      });
+    }
     setSearchOpen((prev) => !prev);
   };
 
@@ -149,12 +168,13 @@ function Header() {
       <Col>
         <Search onClick={openSearchBar}>
           <Input
-            animate={{ scaleX: searchOpen ? 1 : 0 }}
-            placeholder="Search for movie or tv show..."
+            animate={inputAnimation}
+            initial={{ scaleX: 0 }}
+            placeholder="Title, Person, Genre ..."
             transition={{ type: "linear" }}
           />
           <motion.div
-            animate={{ x: searchOpen ? -170 : 0 }}
+            animate={{ x: searchOpen ? -195 : 0 }}
             transition={{ type: "linear" }}
           >
             <FontAwesomeIcon icon={magnifyingGlassDefinition} />
