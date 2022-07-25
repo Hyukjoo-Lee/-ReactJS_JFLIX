@@ -1,7 +1,17 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import {
+  IconLookup,
+  IconDefinition,
+  findIconDefinition,
+} from "@fortawesome/fontawesome-svg-core";
+
 import { motion } from "framer-motion";
 import { useMatch } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useState } from "react";
 
 const Nav = styled.nav`
   display: flex;
@@ -39,29 +49,27 @@ const Items = styled.ul`
 
 const Item = styled.li`
   margin-right: 20px;
-  color: ${(props) => props.theme.white.darker};
+  color: ${(props) => props.theme.white.lighter};
   transition: color 0.3s ease-in-out;
   position: relative;
   display: flex;
   justify-content: center;
   flex-direction: column;
   &:hover {
-    color: blue;
-  }
-
-  &:active {
-    color: darkblue;
+    color: ${(props) => props.theme.white.darker};
   }
 `;
 
 const Search = styled.span`
   color: white;
+  display: flex;
+  align-items: center;
   svg {
-    height: 25px;
+    height: 18px;
   }
 `;
 
-const Circle = styled.span`
+const Circle = styled(motion.span)`
   width: 5px;
   height: 5px;
   border-radius: 5px;
@@ -78,6 +86,10 @@ const Circle = styled.span`
   background-color: ${(props) => props.theme.red};
 `;
 
+const Input = styled(motion.input)`
+  transform-origin: right center;
+`;
+
 const logoVariants = {
   normal: {
     fillOpacity: 1,
@@ -91,10 +103,26 @@ const logoVariants = {
 };
 
 function Header() {
+  // FontAwesomeIcons
+  library.add(fas);
+  const magnifyingGlassLookup: IconLookup = {
+    prefix: "fas",
+    iconName: "magnifying-glass",
+  };
+  const magnifyingGlassDefinition: IconDefinition = findIconDefinition(
+    magnifyingGlassLookup
+  );
+
+  // Url Matches
   const homeMatch = useMatch("/");
-  const tvMatch = useMatch("tv");
-  console.log(homeMatch);
-  console.log(tvMatch);
+  const tvMatch = useMatch("/tv");
+
+  const [searchOpen, setSearchOpen] = useState(false);
+
+  const openSearchBar = () => {
+    setSearchOpen((prev) => !prev);
+  };
+
   return (
     <Nav>
       <Col>
@@ -111,19 +139,27 @@ function Header() {
         </Logo>
         <Items>
           <Link to="/">
-            <Item>
-              Home <Circle />
-            </Item>
+            <Item>Home {homeMatch && <Circle layoutId="circle" />}</Item>
           </Link>
           <Link to="/tv">
-            <Item>
-              TV Shows <Circle />
-            </Item>
+            <Item>TV Shows {tvMatch && <Circle layoutId="circle" />}</Item>
           </Link>
         </Items>
       </Col>
       <Col>
-        <Search />
+        <Search onClick={openSearchBar}>
+          <Input
+            animate={{ scaleX: searchOpen ? 1 : 0 }}
+            placeholder="Search for movie or tv show..."
+            transition={{ type: "linear" }}
+          />
+          <motion.div
+            animate={{ x: searchOpen ? -170 : 0 }}
+            transition={{ type: "linear" }}
+          >
+            <FontAwesomeIcon icon={magnifyingGlassDefinition} />
+          </motion.div>
+        </Search>
       </Col>
     </Nav>
   );
