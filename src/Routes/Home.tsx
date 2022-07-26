@@ -132,7 +132,7 @@ function Home() {
   };
 
   const onBoxClicked = (movieId:number) => {
-    
+    console.log(movieId);
   }
 
   return (
