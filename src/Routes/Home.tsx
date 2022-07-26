@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { getMovies, IGetMoviesResult } from "../api";
 import { makeImagePath } from "../utils";
 import { useState } from "react";
+import useWindowDimensions from "../useWindowDimensions";
 
 const Wrapper = styled.div`
   background: black;
@@ -56,27 +57,15 @@ const Box = styled(motion.div)`
   color: red;
   font-size: 65px;
 `;
-
-const rowVariants = {
-  hidden: {
-    x: window.outerWidth + 10,
-  },
-  visible: {
-    x: 0,
-  },
-  exit: {
-    x: -window.outerWidth - 10,
-  },
-};
-
 function Home() {
   const { data, isLoading } = useQuery<IGetMoviesResult>(
     ["movies", "now_playing"],
     getMovies
   );
   const [leaving, setLeaving] = useState(false);
-
   const [index, setIndex] = useState(0);
+  const windowWidth = useWindowDimensions();
+
   const increaseIndex = () => {
     if (leaving) return;
     setLeaving(true);
@@ -102,10 +91,9 @@ function Home() {
           <Slider>
             <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
               <Row
-                variants={rowVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
+                initial={{ x: windowWidth + 5 }}
+                animate={{ x: 0 }}
+                exit={{ x: -windowWidth - 5 }}
                 transition={{ types: "tween", duration: 1 }}
                 key={index}
               >

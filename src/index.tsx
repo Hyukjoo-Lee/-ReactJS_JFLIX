@@ -39,8 +39,9 @@ footer, header, hgroup, main, menu, nav, section {
 body {
   font-weight: 300;
   font-family: 'Source Sans Pro', sans-serif;
-  color: ${props => props.theme.white.darker};
+  color: ${(props) => props.theme.white.darker};
   background-color: black;
+  overflow-x:hidden;
 }
 menu, ol, ul {
   list-style: none;
