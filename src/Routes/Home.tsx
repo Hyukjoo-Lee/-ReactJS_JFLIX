@@ -6,7 +6,6 @@ function Home() {
         height: "200vh",
       }}
     >
-      <h1>Home</h1>
     </div>
   );
 }

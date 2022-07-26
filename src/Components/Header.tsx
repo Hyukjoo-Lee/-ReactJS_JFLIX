@@ -7,20 +7,19 @@ import {
   findIconDefinition,
 } from "@fortawesome/fontawesome-svg-core";
 
-import { motion, useAnimation } from "framer-motion";
+import { motion, useAnimation, useScroll } from "framer-motion";
 import { useMatch } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const Nav = styled.nav`
+const Nav = styled(motion.nav)`
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: fixed;
   width: 100%;
   top: 0;
-  background-color: black;
   font-size: 14px;
   padding: 20px 60px;
   color: white;
@@ -75,10 +74,12 @@ const Circle = styled(motion.span)`
   border-radius: 5px;
   bottom: -8px;
   // If you want to a component to be centered,
-  /* Position: absolute;
+  /* 
+  Position: absolute;
   left: 0;
   right: 0;
-  margin: 0 auto; */
+  margin: 0 auto; 
+  */
   position: absolute;
   left: 0;
   right: 0;
@@ -87,6 +88,7 @@ const Circle = styled(motion.span)`
 `;
 
 const Input = styled(motion.input)`
+  width: 215px;
   transform-origin: right center;
   position: relative;
   right: 0px;
@@ -111,7 +113,7 @@ const logoVariants = {
 };
 
 function Header() {
-  // FontAwesomeIcons
+  // Set FontAwesomeIcons
   library.add(fas);
   const magnifyingGlassLookup: IconLookup = {
     prefix: "fas",
@@ -128,6 +130,7 @@ function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
 
   const inputAnimation = useAnimation();
+  const navAnimation = useAnimation();
 
   const openSearchBar = () => {
     if (searchOpen) {
@@ -142,8 +145,30 @@ function Header() {
     setSearchOpen((prev) => !prev);
   };
 
+  const { scrollY } = useScroll();
+
+  const navVariants = {
+    top: {
+      backgroundColor: "rgba(0,0,0,0)",
+    },
+    scroll: {
+      backgroundColor: "rgba(0,0,0,1)",
+    },
+  };
+
+  // Scroll event
+  useEffect(() => {
+    scrollY.onChange(() => {
+      if (scrollY.get() > 80) {
+        navAnimation.start("scroll");
+      } else {
+        navAnimation.start("top");
+      }
+    });
+  }, [scrollY, navAnimation]);
+
   return (
-    <Nav>
+    <Nav variants={navVariants} animate={navAnimation} initial={"top"}>
       <Col>
         <Logo
           variants={logoVariants}
@@ -170,11 +195,11 @@ function Header() {
           <Input
             animate={inputAnimation}
             initial={{ scaleX: 0 }}
-            placeholder="Title, Person, Genre ..."
+            placeholder="Title,  Actor,  Genre ..."
             transition={{ type: "linear" }}
           />
           <motion.div
-            animate={{ x: searchOpen ? -195 : 0 }}
+            animate={{ x: searchOpen ? -210 : 0 }}
             transition={{ type: "linear" }}
           >
             <FontAwesomeIcon icon={magnifyingGlassDefinition} />
