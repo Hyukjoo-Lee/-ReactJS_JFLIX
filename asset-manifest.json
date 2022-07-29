@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/ReactJS_JFLIX/static/js/main.3ef7d52b.js",
+    "main.js": "/ReactJS_JFLIX/static/js/main.fcbadd64.js",
     "index.html": "/ReactJS_JFLIX/index.html",
-    "main.3ef7d52b.js.map": "/ReactJS_JFLIX/static/js/main.3ef7d52b.js.map"
+    "main.fcbadd64.js.map": "/ReactJS_JFLIX/static/js/main.fcbadd64.js.map"
   },
   "entrypoints": [
-    "static/js/main.3ef7d52b.js"
+    "static/js/main.fcbadd64.js"
   ]
 }
