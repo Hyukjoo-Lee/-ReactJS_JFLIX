@@ -8,10 +8,11 @@ import {
 } from "@fortawesome/fontawesome-svg-core";
 
 import { motion, useAnimation, useScroll } from "framer-motion";
-import { useMatch } from "react-router-dom";
+import { useMatch, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 
 const Nav = styled(motion.nav)`
   display: flex;
@@ -59,27 +60,11 @@ const Item = styled.li`
   }
 `;
 
-const Search = styled.span`
-  color: white;
-  display: flex;
-  align-items: center;
-  svg {
-    height: 17px;
-  }
-`;
-
 const Circle = styled(motion.span)`
   width: 5px;
   height: 5px;
   border-radius: 5px;
   bottom: -8px;
-  // If you want to a component to be centered,
-  /* 
-  Position: absolute;
-  left: 0;
-  right: 0;
-  margin: 0 auto; 
-  */
   position: absolute;
   left: 0;
   right: 0;
@@ -87,12 +72,22 @@ const Circle = styled(motion.span)`
   background-color: ${(props) => props.theme.red};
 `;
 
-const Input = styled(motion.input)`
-  width: 215px;
-  transform-origin: right center;
+const Search = styled.form`
+  color: white;
+  display: flex;
+  align-items: center;
   position: relative;
+  svg {
+    height: 20px;
+  }
+`;
+
+const Input = styled(motion.input)`
+  transform-origin: right center;
+  position: absolute;
   right: 0px;
-  padding-left: 30px;
+  padding: 5px 10px;
+  padding-left: 40px;
   z-index: -1;
   color: white;
   font-size: 16px;
@@ -111,6 +106,10 @@ const logoVariants = {
     },
   },
 };
+
+interface IForm {
+  keyword: string;
+}
 
 function Header() {
   // Set FontAwesomeIcons
@@ -167,6 +166,13 @@ function Header() {
     });
   }, [scrollY, navAnimation]);
 
+  const navigate = useNavigate();
+  const { register, handleSubmit } = useForm<IForm>();
+  const onValid = (data: IForm) => {
+    navigate(`/search?keyword=${data.keyword}`)
+  };
+
+
   return (
     <Nav variants={navVariants} animate={navAnimation} initial={"top"}>
       <Col>
@@ -191,19 +197,21 @@ function Header() {
         </Items>
       </Col>
       <Col>
-        <Search onClick={openSearchBar}>
+        <Search onSubmit={handleSubmit(onValid)}>
+          <motion.svg
+            onClick={openSearchBar}
+            animate={{ x: searchOpen ? -215 : 0 }}
+            transition={{ type: "linear" }}
+            viewBox="0 0 20 20"
+          >
+            <FontAwesomeIcon icon={magnifyingGlassDefinition} />
+          </motion.svg>
           <Input
+            {...register("keyword", { required: true, minLength: 2 })}
             animate={inputAnimation}
             initial={{ scaleX: 0 }}
             placeholder="Title,  Actor,  Genre ..."
-            transition={{ type: "linear" }}
           />
-          <motion.div
-            animate={{ x: searchOpen ? -210 : 0 }}
-            transition={{ type: "linear" }}
-          >
-            <FontAwesomeIcon icon={magnifyingGlassDefinition} />
-          </motion.div>
         </Search>
       </Col>
     </Nav>
