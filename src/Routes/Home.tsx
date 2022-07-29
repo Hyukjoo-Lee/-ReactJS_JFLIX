@@ -199,7 +199,6 @@ function Home() {
     setLeaving((prev) => !prev);
   };
 
-<<<<<<< HEAD
   const onMouseClicked = (movieId: number) => {
     navigate(`/movies/${movieId}`);
   };
@@ -213,11 +212,6 @@ function Home() {
     data?.results.find((movie) => movie.id === +bigMovieMatch?.params.movieId!);
 
   console.log(clickedMovie);
-=======
-  const onBoxClicked = (movieId:number) => {
-    console.log(movieId);
-  }
->>>>>>> f9aff3edf351dcdf5cf55eb4df0179895f53f271
 
   return (
     <Wrapper>
