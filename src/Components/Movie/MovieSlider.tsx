@@ -1,25 +1,27 @@
-import {
-  AnimatePresence,
-  motion,
-  useScroll,
-  useTransform,
-} from "framer-motion";
-import { useState } from "react";
-import { useQuery } from "react-query";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { useMatch, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { getMovies, IGetMoviesResult } from "../../api/movieApi";
+import { IGetMovies } from "../../api/movieApi";
 import useWindowDimensions from "../../useWindowDimensions";
 import { makeImagePath } from "../../utils";
+import MovieDetail from "./MovieDetail";
 
 const Slider = styled.div`
   position: relative;
-  height: 30vh;
+  margin: 2vh;
+  height: 32vh;
+`;
+
+const SliderTitle = styled.h2`
+  font-size: 1.4vw;
+  gap: 20px;
+  margin-bottom: 20px;
 `;
 
 const Row = styled(motion.div)`
   display: grid;
-  gap: 10px;
+  gap: 20px;
   grid-template-columns: repeat(6, 1fr);
   position: absolute;
   width: 100%;
@@ -28,6 +30,7 @@ const Row = styled(motion.div)`
 const Box = styled(motion.div)<{ bgphoto: string }>`
   background-color: white;
   height: 200px;
+  border-radius: 5%;
   background-image: url(${(props) => props.bgphoto});
   background-size: 255px 200px;
   background-position: center center;
@@ -83,74 +86,47 @@ const infoVariants = {
   },
 };
 
-const ModalOverview = styled.p`
-  color: ${(props) => props.theme.white.lighter};
-  padding: 10px;
-  position: relative;
-  top: -50px;
-  background-color: transparent;
-`;
+interface IProps {
+  kind: string;
+  data?: IGetMovies;
+}
 
-const Overlay = styled(motion.div)`
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  opacity: 0;
-`;
-
-const ModalContainer = styled(motion.div)`
-  position: absolute;
-  width: 30vw;
-  height: 70vh;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  border-radius: 20px;
-  overflow: hidden;
-  background-color: ${(props) => props.theme.black.darker};
-
-  img {
-    align-items: center;
-  }
-`;
-
-const ModalCover = styled.div`
-  width: 100%;
-  height: 400px;
-  background-size: 100% 100%;
-  background-position: center center;
-`;
-
-const ModalMovieTitle = styled.h3`
-  color: ${(props) => props.theme.white.lighter};
-  padding: 10px;
-  font-size: 35px;
-  position: relative;
-  top: -50px;
-`;
-
-const SmallerTitle = styled.h3`
-  color: ${(props) => props.theme.white.lighter};
-  padding: 10px;
-  font-size: 22px;
-  position: relative;
-  top: -50px;
-`;
-
-function MovieSlider() {
+function MovieSlider({ kind, data }: IProps) {
   const navigate = useNavigate();
 
   const [index, setIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
-  const { data, isLoading } = useQuery<IGetMoviesResult>(
-    ["movies", "now_playing"],
-    getMovies
-  );
+
   const offset = 6;
 
+  // const increaseIndex = () => {
+  //   if (data) {
+  //     if (leaving) return;
+  //     setLeaving(true);
+  //     const totalMovies = data?.results.length - 1;
+  //     const maxIndex = Math.floor(totalMovies / offset) - 1;
+  //     setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
+  //   }
+  // };
+
+  const [title, setTitle] = useState("");
+
+  useEffect(() => {
+    switch (kind) {
+      case "now":
+        setTitle("Playing Now");
+        break;
+      case "popular":
+        setTitle("Popular Movies");
+        break;
+      case "top_rated":
+        setTitle("Top Rated Movies");
+        break;
+    }
+  });
+
   const windowWidth = useWindowDimensions();
+
   const toggleLeaving = () => {
     setLeaving((prev) => !prev);
   };
@@ -160,20 +136,12 @@ function MovieSlider() {
   };
 
   const bigMovieMatch = useMatch(`/movies/:movieId`);
-  const { scrollY } = useScroll();
-  const setScrollY = useTransform(scrollY, (val) => val + 65);
-  const onOverlayClicked = () => {
-    navigate(-1);
-  };
-
-  const clickedMovie =
-    bigMovieMatch?.params.movieId &&
-    data?.results.find((movie) => movie.id === +bigMovieMatch?.params.movieId!);
 
   return (
     <>
       {/* Slider */}
       <Slider>
+        <SliderTitle>{title}</SliderTitle>
         <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
           <Row
             initial={{ x: windowWidth + 5 }}
@@ -208,37 +176,7 @@ function MovieSlider() {
       {/* Modal */}
       <AnimatePresence>
         {bigMovieMatch ? (
-          <>
-            <Overlay
-              onClick={onOverlayClicked}
-              exit={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-            />
-            {/* Modal */}
-            <ModalContainer
-              style={{ top: setScrollY }}
-              layoutId={bigMovieMatch.params.movieId}
-            >
-              {clickedMovie && (
-                <>
-                  <ModalCover
-                    style={{
-                      backgroundImage: `linear-gradient(to top, black, transparent), url( ${makeImagePath(
-                        clickedMovie?.poster_path,
-                        "w400" || ""
-                      )})`,
-                    }}
-                  />
-                  {clickedMovie.title.length < 22 ? (
-                    <ModalMovieTitle>{clickedMovie.title}</ModalMovieTitle>
-                  ) : (
-                    <SmallerTitle>{clickedMovie.title}</SmallerTitle>
-                  )}
-                  <ModalOverview>{clickedMovie.overview}</ModalOverview>
-                </>
-              )}
-            </ModalContainer>
-          </>
+          <MovieDetail id={bigMovieMatch.params.movieId!} kind={kind} />
         ) : null}
       </AnimatePresence>
     </>

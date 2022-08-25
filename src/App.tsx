@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./Components/Header";
 import Home from "./Routes/Home";
 import Search from "./Routes/Search";
-import Tv from "./Routes/Tv";
+import Tv from "./Components/TvShow/TvDetail";
 
 function App() {
   return (

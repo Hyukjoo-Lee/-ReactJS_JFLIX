@@ -1,13 +1,13 @@
 import { useQuery } from "react-query";
 import styled from "styled-components";
-import { getMovies, IGetMoviesResult } from "../api/movieApi";
+import { getMovies, IGetMovies } from "../api/movieApi";
 import { makeImagePath } from "../utils";
-import { useState } from "react";
 import MovieSlider from "../Components/Movie/MovieSlider";
 
 const Wrapper = styled.div`
   background: black;
 `;
+
 const Loader = styled.div`
   height: 20vh;
   display: flex;
@@ -16,8 +16,8 @@ const Loader = styled.div`
 `;
 
 const Banner = styled.div<{ bgPhoto: string }>`
-  height: 70vh;
   display: flex;
+  height: 70vh;
   flex-direction: column;
   justify-content: center;
   padding: 60px;
@@ -39,56 +39,52 @@ const Title = styled.h2`
   font-weight: 800;
   font-size: 64px;
   margin-bottom: 20px;
-  color: cyan;
+  color: whitesmoke;
   text-shadow: 2px 2px 2px black;
 `;
 
 const Overview = styled.p`
-  width: 48%;
+  width: 50%;
   font-size: 20px;
-  font-weight: 400;
+  font-weight: 300;
   color: rgba(255, 255, 255, 0.8);
   line-height: 1.3;
 `;
 
 function Home() {
-  const { data, isLoading } = useQuery<IGetMoviesResult>(
-    ["movies", "now_playing"],
-    getMovies
+  const { data: nowData, isLoading: nowLoading } = useQuery<IGetMovies>(
+    ["movie", "now"],
+    () => getMovies("now_playing")
   );
-  const [leaving, setLeaving] = useState(false);
-  const [index, setIndex] = useState(0);
 
-  const offset = 6;
+  const { data: popularData, isLoading: popularLoading } = useQuery<IGetMovies>(
+    ["movie", "popular"],
+    () => getMovies("popular")
+  );
 
-  const increaseIndex = () => {
-    if (data) {
-      if (leaving) return;
-      setLeaving(true);
-      const totalMovies = data?.results.length - 1;
-      const maxIndex = Math.floor(totalMovies / offset) - 1;
-      setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
-    }
-  };
+  const { data: topData, isLoading: topLoading } = useQuery<IGetMovies>(
+    ["movie", "top"],
+    () => getMovies("top_rated")
+  );
 
   return (
     <Wrapper>
-      {isLoading ? (
+      {nowLoading && popularLoading && topLoading ? (
         <Loader>Loading...</Loader>
       ) : (
         <>
+          {/* Top Banner */}
           <Banner
-            onClick={increaseIndex}
-            bgPhoto={makeImagePath(data?.results[0].backdrop_path || "")}
+            bgPhoto={makeImagePath(popularData?.results[0].backdrop_path || "")}
           >
-            <Title>{data?.results[0].title}</Title>
-            <Overview>{data?.results[0].overview}</Overview>
+            <Title>{popularData?.results[0].title}</Title>
+            <Overview>{popularData?.results[0].overview}</Overview>
           </Banner>
 
-          {/* Slider */}
-          <MovieSlider />
-          <MovieSlider />
-          <MovieSlider />
+          {/* Sliders */}
+          <MovieSlider kind="now" data={nowData} />
+          <MovieSlider kind="popular" data={popularData} />
+          <MovieSlider kind="top_rated" data={topData} />
         </>
       )}
     </Wrapper>
