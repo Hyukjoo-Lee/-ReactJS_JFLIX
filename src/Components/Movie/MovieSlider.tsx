@@ -1,9 +1,8 @@
-import { AnimatePresence, motion, Variant } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useMatch, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { IGetMovies } from "../../api/movieApi";
-import useWindowDimensions from "../../useWindowDimensions";
 import { makeImagePath } from "../../utils";
 import MovieDetail from "./MovieDetail";
 
@@ -183,8 +182,6 @@ function MovieSlider({ kind, data }: IProps) {
         break;
     }
   });
-
-  const windowWidth = useWindowDimensions();
 
   const toggleLeaving = () => {
     setLeaving((prev) => !prev);
