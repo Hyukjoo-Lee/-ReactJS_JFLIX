@@ -6,11 +6,12 @@ import Tv from "./Routes/Tv";
 
 function App() {
   return (
+    // <BrowserRouter basename={process.env.PUBLIC_URL}>
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/ReactJS_JFLIX" element={<Home />}>
-          <Route path="movies/:movieId" element={<Home />} />
+        <Route path="/" element={<Home />}>
+          <Route path="/movies/:movieId" element={<Home />} />
         </Route>
         <Route path="tv" element={<Tv />}></Route>
         <Route path="search" element={<Search />}></Route>

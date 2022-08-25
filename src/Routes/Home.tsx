@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { getMovies, IGetMoviesResult } from "../api/movieApi";
 import { makeImagePath } from "../utils";
 import { useState } from "react";
-import MovieSlider from "../Components/MovieSlider";
+import MovieSlider from "../Components/Movie/MovieSlider";
 
 const Wrapper = styled.div`
   background: black;

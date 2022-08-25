@@ -8,9 +8,9 @@ import { useState } from "react";
 import { useQuery } from "react-query";
 import { useMatch, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { getMovies, IGetMoviesResult } from "../api/movieApi";
-import useWindowDimensions from "../useWindowDimensions";
-import { makeImagePath } from "../utils";
+import { getMovies, IGetMoviesResult } from "../../api/movieApi";
+import useWindowDimensions from "../../useWindowDimensions";
+import { makeImagePath } from "../../utils";
 
 const Slider = styled.div`
   position: relative;
