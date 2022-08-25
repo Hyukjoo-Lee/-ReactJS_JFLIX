@@ -1,5 +1,5 @@
-function MovieSlider() {
+function MovieDetail() {
   return <div></div>;
 }
 
-export default MovieSlider;
+export default MovieDetail;

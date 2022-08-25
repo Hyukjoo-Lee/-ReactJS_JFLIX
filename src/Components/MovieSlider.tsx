@@ -11,7 +11,6 @@ import styled from "styled-components";
 import { getMovies, IGetMoviesResult } from "../api/movieApi";
 import useWindowDimensions from "../useWindowDimensions";
 import { makeImagePath } from "../utils";
-import MovieDetail from "./MovieDetail";
 
 const Slider = styled.div`
   position: relative;

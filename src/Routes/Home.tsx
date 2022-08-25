@@ -89,7 +89,6 @@ function Home() {
           <MovieSlider />
           <MovieSlider />
           <MovieSlider />
-
         </>
       )}
     </Wrapper>
