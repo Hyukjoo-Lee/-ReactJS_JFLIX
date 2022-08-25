@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, Variant } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useMatch, useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -26,6 +26,22 @@ const Row = styled(motion.div)`
   position: absolute;
   width: 100%;
 `;
+
+const RowVariants = {
+  hidden: (isNext: boolean) => {
+    return {
+      x: isNext ? window.innerWidth : -window.innerWidth,
+    };
+  },
+  visible: {
+    x: 0,
+  },
+  exit: (isNext: boolean) => {
+    return {
+      x: isNext ? -window.innerWidth : window.innerWidth,
+    };
+  },
+};
 
 const Box = styled(motion.div)<{ bgphoto: string }>`
   background-color: white;
@@ -86,6 +102,22 @@ const infoVariants = {
   },
 };
 
+const PrevIcon = styled(motion.img)`
+  position: absolute;
+  width: 50px;
+  top: 100px;
+  left: 0;
+  cursor: pointer;
+`;
+
+const NextIcon = styled(motion.img)`
+  position: absolute;
+  width: 50px;
+  top: 100px;
+  right: 0;
+  cursor: pointer;
+`;
+
 interface IProps {
   kind: string;
   data?: IGetMovies;
@@ -97,17 +129,44 @@ function MovieSlider({ kind, data }: IProps) {
   const [index, setIndex] = useState(0);
   const [leaving, setLeaving] = useState(false);
 
+  const toggleLeave = () => setLeaving((prev) => !prev);
+
+  // To set direction of animation.
+  const [isNext, setIsNext] = useState(true);
+
   const offset = 6;
 
-  // const increaseIndex = () => {
-  //   if (data) {
-  //     if (leaving) return;
-  //     setLeaving(true);
-  //     const totalMovies = data?.results.length - 1;
-  //     const maxIndex = Math.floor(totalMovies / offset) - 1;
-  //     setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
-  //   }
-  // };
+  // To move next slide
+  const increaseIndex = () => {
+    if (data) {
+      if (leaving) return;
+      else {
+        const totalMovies = data?.results.length - 1;
+        const maxIndex = Math.floor(totalMovies / offset) - 1;
+
+        toggleLeave();
+
+        setIndex((prev) => (prev === maxIndex ? 0 : prev + 1));
+        setIsNext(() => true);
+      }
+    }
+  };
+
+  // To move previous slide
+  const decreaseIndex = () => {
+    if (data) {
+      if (leaving) return;
+      else {
+        const totalMovies = data?.results.length - 1;
+        const maxIndex = Math.floor(totalMovies / offset) - 1;
+
+        toggleLeave();
+
+        setIndex((prev) => (prev === 0 ? maxIndex - 1 : prev - 1));
+        setIsNext(() => false);
+      }
+    }
+  };
 
   const [title, setTitle] = useState("");
 
@@ -137,18 +196,27 @@ function MovieSlider({ kind, data }: IProps) {
 
   const bigMovieMatch = useMatch(`/movies/:movieId`);
 
+  const prevBtn = require(`../../assets/images/prevBtn.png`);
+  const nextBtn = require(`../../assets/images/nextBtn.png`);
+
   return (
     <>
       {/* Slider */}
       <Slider>
         <SliderTitle>{title}</SliderTitle>
-        <AnimatePresence initial={false} onExitComplete={toggleLeaving}>
+        <AnimatePresence
+          initial={false}
+          onExitComplete={toggleLeaving}
+          custom={isNext}
+        >
           <Row
-            initial={{ x: windowWidth + 5 }}
-            animate={{ x: 0 }}
-            exit={{ x: -windowWidth - 5 }}
+            variants={RowVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
             transition={{ types: "tween", duration: 1 }}
             key={index}
+            custom={isNext}
           >
             {data?.results
               .slice(1)
@@ -171,6 +239,8 @@ function MovieSlider({ kind, data }: IProps) {
               ))}
           </Row>
         </AnimatePresence>
+        <PrevIcon src={prevBtn} whileHover="hover" onClick={decreaseIndex} />
+        <NextIcon src={nextBtn} whileHover="hover" onClick={increaseIndex} />
       </Slider>
 
       {/* Modal */}
