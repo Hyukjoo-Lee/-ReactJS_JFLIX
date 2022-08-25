@@ -8,12 +8,12 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
-      <Routes>*
-        <Route path="tv" element={<Tv />}></Route>
-        <Route path="search" element={<Search />}></Route>
-        <Route path="/" element={<Home />}>
+      <Routes>
+        <Route path="/ReactJS_JFLIX" element={<Home />}>
           <Route path="movies/:movieId" element={<Home />} />
         </Route>
+        <Route path="tv" element={<Tv />}></Route>
+        <Route path="search" element={<Search />}></Route>
       </Routes>
     </BrowserRouter>
   );
