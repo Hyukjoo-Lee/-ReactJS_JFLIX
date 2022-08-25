@@ -73,12 +73,13 @@ const Circle = styled(motion.span)`
 `;
 
 const Search = styled.form`
-  color: white;
+  position: relative;
   display: flex;
   align-items: center;
-  position: relative;
+  margin-right: 40px;
   svg {
     height: 20px;
+    cursor: pointer;
   }
 `;
 
@@ -93,6 +94,9 @@ const Input = styled(motion.input)`
   font-size: 16px;
   background-color: transparent;
   border: 1px solid ${(props) => props.theme.white.lighter};
+  ::placeholder {
+    color: white;
+  }
 `;
 
 const logoVariants = {
@@ -199,7 +203,7 @@ function Header() {
         <Search onSubmit={handleSubmit(onValid)}>
           <motion.svg
             onClick={openSearchBar}
-            animate={{ x: searchOpen ? -215 : 0 }}
+            animate={{ x: searchOpen ? -190 : 0 }}
             transition={{ type: "linear" }}
             viewBox="0 0 20 20"
           >
