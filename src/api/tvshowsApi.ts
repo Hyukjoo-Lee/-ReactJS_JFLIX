@@ -1,4 +1,5 @@
-const API_KEY = process.env.REACT_APP_API_KEY;
+const API_KEY = "6a775266b4bb807f408dc64151848fcc";
+// const API_KEY = process.env.REACT_APP_API_KEY;
 const BASE_PATH = "https://api.themoviedb.org/3";
 const REGION = "ca";
 const LANG = "en-US";
