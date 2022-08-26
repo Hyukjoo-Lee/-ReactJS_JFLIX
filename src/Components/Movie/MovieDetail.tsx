@@ -10,7 +10,7 @@ import {
 } from "../../api/movieApi";
 import { makeImagePath } from "../../utils";
 
-const Overlay = styled(motion.div)`
+export const Overlay = styled(motion.div)`
   position: absolute;
   top: 0;
   width: 100%;
@@ -19,7 +19,7 @@ const Overlay = styled(motion.div)`
   opacity: 0;
 `;
 
-const ModalContainer = styled(motion.div)`
+export const ModalContainer = styled(motion.div)`
   position: relative;
   display: flex;
   width: 80%;
@@ -30,13 +30,13 @@ const ModalContainer = styled(motion.div)`
   background-color: transparent;
 `;
 
-const Content = styled.div`
+export const Content = styled.div`
   display: flex;
   width: 100%;
   height: 90%;
 `;
 
-const ModalCover = styled.div`
+export const ModalCover = styled.div`
   width: 50%;
   height: 100%;
   background-size: cover;
@@ -44,12 +44,12 @@ const ModalCover = styled.div`
   border-radius: 5px;
 `;
 
-const Data = styled.div`
+export const Data = styled.div`
   width: 50%;
   margin-left: 20px;
 `;
 
-const ModalMovieTitle = styled.h3`
+export const ModalTitle = styled.h3`
   color: ${(props) => props.theme.white.lighter};
   padding: 10px;
   font-size: 35px;
@@ -57,7 +57,7 @@ const ModalMovieTitle = styled.h3`
   margin-top: 20px;
 `;
 
-const ModalOverview = styled.p`
+export const ModalOverview = styled.p`
   width: 370px;
   height: auto;
   color: ${(props) => props.theme.white.lighter};
@@ -65,14 +65,14 @@ const ModalOverview = styled.p`
   background-color: transparent;
 `;
 
-const Rating = styled.p`
+export const Rating = styled.p`
   color: ${(props) => props.theme.white.lighter};
   padding: 10px;
   font-size: 14px;
   font-weight: bold;
 `;
 
-const ReleaseDate = styled.p`
+export const ReleaseDate = styled.p`
   color: ${(props) => props.theme.white.lighter};
   padding-left: 10px;
   padding-bottom: 10px;
@@ -80,18 +80,18 @@ const ReleaseDate = styled.p`
   font-weight: bold;
 `;
 
-const Trailer = styled.div`
+export const Trailer = styled.div`
   padding: 10px;
   font-size: 30px;
 `;
 
-const Title = styled.h3`
+export const Title = styled.h3`
   margin: 20px 0;
   font-size: 32px;
   margin-bottom: 10px;
 `;
 
-interface IProps {
+export interface IProps {
   kind: string;
   id: string;
 }
@@ -141,7 +141,7 @@ function MovieDetail({ kind, id }: IProps) {
                     }}
                   />
                   <Data>
-                    <ModalMovieTitle>{detailData.title}</ModalMovieTitle>
+                    <ModalTitle>{detailData.title}</ModalTitle>
                     <Rating>
                       <span role="img" aria-label="rating">
                         ⭐️

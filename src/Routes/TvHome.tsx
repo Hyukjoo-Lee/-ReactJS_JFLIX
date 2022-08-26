@@ -20,7 +20,7 @@ function TvHome() {
 
   return (
     <Wrapper>
-      {onAirLoading ? (
+      {onAirLoading && popularLoading && topLoading ? (
         <Loader>Loading...</Loader>
       ) : (
         <>

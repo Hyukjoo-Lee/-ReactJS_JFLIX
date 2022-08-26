@@ -141,11 +141,11 @@ function TvSlider({ kind, data }: IProps) {
       </Slider>
 
       {/* Modal */}
-      {/* <AnimatePresence>
+      <AnimatePresence>
         {bigTvMatch ? (
-          <TvDetail id={bigTvMatch.params.movieId!} kind={kind} />
+          <TvDetail id={bigTvMatch.params.tvShowId!} kind={kind} />
         ) : null}
-      </AnimatePresence> */}
+      </AnimatePresence>
     </>
   );
 }

@@ -13,7 +13,9 @@ function App() {
         <Route path="/" element={<MovieHome />}>
           <Route path="/movies/:movieId" element={<MovieHome />} />
         </Route>
-        <Route path="tv" element={<TvHome />}></Route>
+        <Route path="tv" element={<TvHome />}>
+          <Route path="/tv/:tvShowId" element={<TvHome />} />
+        </Route>
         <Route path="search" element={<Search />}></Route>
       </Routes>
     </BrowserRouter>
