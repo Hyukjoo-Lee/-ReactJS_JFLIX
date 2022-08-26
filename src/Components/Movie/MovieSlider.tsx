@@ -221,7 +221,6 @@ function MovieSlider({ kind, data }: IProps) {
               .slice(offset * index, offset * index + offset)
               .map((movie) => (
                 <Box
-                  layoutId={movie.id + ""}
                   key={movie.id}
                   whileHover="hover"
                   initial="normal"

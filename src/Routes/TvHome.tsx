@@ -34,8 +34,8 @@ function TvHome() {
 
           {/* Sliders */}
           <TvSlider kind="onAir" data={onAirData} />
-          <TvSlider kind="popular" data={popularData} />
           <TvSlider kind="topRated" data={topData} />
+          <TvSlider kind="popular" data={popularData} />
         </>
       )}
     </Wrapper>

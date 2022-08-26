@@ -83,8 +83,8 @@ function Home() {
 
           {/* Sliders */}
           <MovieSlider kind="now" data={nowData} />
-          <MovieSlider kind="popular" data={popularData} />
           <MovieSlider kind="top_rated" data={topData} />
+          <MovieSlider kind="popular" data={popularData} />
         </>
       )}
     </Wrapper>

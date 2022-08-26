@@ -4,6 +4,7 @@ import { useMatch, useNavigate } from "react-router-dom";
 import { IGetTvShows } from "../../api/tvShowsApi";
 import { makeImagePath } from "../../utils";
 import TvDetail from "./TvDetail";
+
 import {
   Box,
   boxVariants,
@@ -120,7 +121,6 @@ function TvSlider({ kind, data }: IProps) {
               .slice(offset * index, offset * index + offset)
               .map((tvShow) => (
                 <Box
-                  layoutId={tvShow.id + ""}
                   key={tvShow.id}
                   whileHover="hover"
                   initial="normal"
