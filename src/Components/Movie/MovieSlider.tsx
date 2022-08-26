@@ -6,20 +6,20 @@ import { IGetMovies } from "../../api/movieApi";
 import { makeImagePath } from "../../utils";
 import MovieDetail from "./MovieDetail";
 
-const Slider = styled.div`
+export const Slider = styled.div`
   position: relative;
   margin: 2vh;
   height: 32vh;
   padding: 0px 50px;
 `;
 
-const SliderTitle = styled.h2`
+export const SliderTitle = styled.h2`
   font-size: 1.4vw;
   gap: 20px;
   margin-bottom: 20px;
 `;
 
-const Row = styled(motion.div)`
+export const Row = styled(motion.div)`
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(6, 1fr);
@@ -27,7 +27,7 @@ const Row = styled(motion.div)`
   width: 93%;
 `;
 
-const RowVariants = {
+export const RowVariants = {
   hidden: (isNext: boolean) => {
     return {
       x: isNext ? window.innerWidth : -window.innerWidth,
@@ -43,7 +43,7 @@ const RowVariants = {
   },
 };
 
-const Box = styled(motion.div)<{ bgphoto: string }>`
+export const Box = styled(motion.div)<{ bgphoto: string }>`
   background-color: white;
   height: 200px;
   border-radius: 5%;
@@ -62,7 +62,7 @@ const Box = styled(motion.div)<{ bgphoto: string }>`
   }
 `;
 
-const boxVariants = {
+export const boxVariants = {
   normal: {
     scale: 1,
   },
@@ -77,7 +77,7 @@ const boxVariants = {
   },
 };
 
-const Info = styled(motion.div)`
+export const Info = styled(motion.div)`
   padding: 10px;
   background-color: black;
   opacity: 0;
@@ -91,7 +91,7 @@ const Info = styled(motion.div)`
   }
 `;
 
-const infoVariants = {
+export const infoVariants = {
   hover: {
     opacity: 1,
     zIndex: 100,
@@ -102,7 +102,7 @@ const infoVariants = {
   },
 };
 
-const PrevIcon = styled(motion.img)`
+export const PrevIcon = styled(motion.img)`
   position: absolute;
   width: 50px;
   top: 100px;
@@ -110,7 +110,7 @@ const PrevIcon = styled(motion.img)`
   cursor: pointer;
 `;
 
-const NextIcon = styled(motion.img)`
+export const NextIcon = styled(motion.img)`
   position: absolute;
   width: 50px;
   top: 100px;

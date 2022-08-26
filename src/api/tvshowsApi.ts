@@ -27,22 +27,30 @@ export interface IGetTvShows {
 }
 
 export interface IGetTvShowsDetail {
-    id: number;
-    backdrop_path: string;
-    poster_path: string;
-    title: string;
-    original_title: string;
-    overview: string;
-    vote_average: number;
-    release_date: string;
-    
+  id: number;
+  backdrop_path: string;
+  first_air_date: string,
+  poster_path: string;
+  name: string;
+  original_name: string;
+  overview: string;
+  vote_average: number;
     genres: [
       {
         id: number;
         name: string;
       }
     ];
-    tagline: string;
+    last_episode_to_air: {
+      air_date: string;
+      name: string;
+      episode_number: number;
+    };
+    next_episode_to_air: {
+      air_date: string;
+      name: string;
+      episode_number: number;
+    };
   }
 
   
@@ -56,8 +64,6 @@ export interface IGetTvShowsVideo {
       }
     ]
   }
-
-//   https://api.themoviedb.org/3/tv/on_the_air?api_key=6a775266b4bb807f408dc64151848fcc&language=en-US&page=1
 
 export async function getTvShows(kind: string) {
     return await (

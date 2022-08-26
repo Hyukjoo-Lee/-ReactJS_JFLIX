@@ -75,10 +75,10 @@ function Home() {
         <>
           {/* Top Banner */}
           <Banner
-            bgPhoto={makeImagePath(popularData?.results[0].backdrop_path || "")}
+            bgPhoto={makeImagePath(nowData?.results[0].backdrop_path || "")}
           >
-            <Title>{popularData?.results[0].title}</Title>
-            <Overview>{popularData?.results[0].overview}</Overview>
+            <Title>{nowData?.results[0].title}</Title>
+            <Overview>{nowData?.results[0].overview}</Overview>
           </Banner>
 
           {/* Sliders */}

@@ -10,7 +10,14 @@ function TvHome() {
     () => getTvShows("on_the_air")
   );
 
-  console.log(onAirData);
+  const { data: popularData, isLoading: popularLoading } =
+    useQuery<IGetTvShows>(["tv", "popular"], () => getTvShows("popular"));
+
+  const { data: topData, isLoading: topLoading } = useQuery<IGetTvShows>(
+    ["tv", "top"],
+    () => getTvShows("top_rated")
+  );
+
   return (
     <Wrapper>
       {onAirLoading ? (
@@ -27,6 +34,8 @@ function TvHome() {
 
           {/* Sliders */}
           <TvSlider kind="onAir" data={onAirData} />
+          <TvSlider kind="popular" data={popularData} />
+          <TvSlider kind="topRated" data={topData} />
         </>
       )}
     </Wrapper>
