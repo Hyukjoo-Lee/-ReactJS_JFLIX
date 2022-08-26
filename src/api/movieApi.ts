@@ -79,6 +79,3 @@ export async function getMovieVideo(id: string) {
       )
     ).json();
   }
-
-
-  

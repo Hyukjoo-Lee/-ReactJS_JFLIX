@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./Components/Header";
-import Home from "./Routes/Home";
+import MovieHome from "./Routes/MovieHome";
 import Search from "./Routes/Search";
-import Tv from "./Components/TvShow/TvDetail";
+import TvHome from "./Routes/TvHome";
 
 function App() {
   return (
@@ -10,10 +10,10 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<Home />}>
-          <Route path="/movies/:movieId" element={<Home />} />
+        <Route path="/" element={<MovieHome />}>
+          <Route path="/movies/:movieId" element={<MovieHome />} />
         </Route>
-        <Route path="tv" element={<Tv />}></Route>
+        <Route path="tv" element={<TvHome />}></Route>
         <Route path="search" element={<Search />}></Route>
       </Routes>
     </BrowserRouter>

@@ -10,6 +10,7 @@ const Slider = styled.div`
   position: relative;
   margin: 2vh;
   height: 32vh;
+  padding: 0px 50px;
 `;
 
 const SliderTitle = styled.h2`
@@ -23,7 +24,7 @@ const Row = styled(motion.div)`
   gap: 20px;
   grid-template-columns: repeat(6, 1fr);
   position: absolute;
-  width: 100%;
+  width: 93%;
 `;
 
 const RowVariants = {

@@ -4,18 +4,18 @@ import { getMovies, IGetMovies } from "../api/movieApi";
 import { makeImagePath } from "../utils";
 import MovieSlider from "../Components/Movie/MovieSlider";
 
-const Wrapper = styled.div`
+export const Wrapper = styled.div`
   background: black;
 `;
 
-const Loader = styled.div`
+export const Loader = styled.div`
   height: 20vh;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
-const Banner = styled.div<{ bgPhoto: string }>`
+export const Banner = styled.div<{ bgPhoto: string }>`
   display: flex;
   height: 70vh;
   flex-direction: column;
@@ -31,7 +31,7 @@ const Banner = styled.div<{ bgPhoto: string }>`
   background-repeat: no-repeat;
 `;
 
-const Title = styled.h2`
+export const Title = styled.h2`
   display: flex;
   align-items: center;
   width: 80%;
@@ -43,7 +43,7 @@ const Title = styled.h2`
   text-shadow: 2px 2px 2px black;
 `;
 
-const Overview = styled.p`
+export const Overview = styled.p`
   width: 50%;
   font-size: 20px;
   font-weight: 300;
