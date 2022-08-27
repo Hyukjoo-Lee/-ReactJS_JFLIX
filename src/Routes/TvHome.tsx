@@ -6,7 +6,7 @@ import { getTvShows, IGetTvShows } from "../api/tvShowsApi";
 
 function TvHome() {
   const { data: onAirData, isLoading: onAirLoading } = useQuery<IGetTvShows>(
-    ["tvshows", "onair"],
+    ["tv", "onair"],
     () => getTvShows("on_the_air")
   );
 

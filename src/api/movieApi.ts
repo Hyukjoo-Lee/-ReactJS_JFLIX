@@ -79,3 +79,10 @@ export async function getMovieVideo(id: string) {
       )
     ).json();
   }
+
+// Search API (Both for movie and tvshows)
+export function getSearch(type: string, query: string | null) {
+  return fetch(
+    `${BASE_PATH}/search/${type}?api_key=${API_KEY}&query=${query}}&page=1&include_adult=false`
+  ).then((response) => response.json());
+}
