@@ -13,6 +13,19 @@ export interface IMovie {
   poster_path: string;
   original_title: string;
   title?: string;
+  name?: string;
+  vote_average: string;
+}
+
+export interface IMovieTv {
+  id: number;
+  backdrop_path: string;
+  overview: string;
+  release_date: string;
+  poster_path: string;
+  original_title: string;
+  title?: string;
+  name?: string;
   vote_average: string;
 }
 
