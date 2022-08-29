@@ -15,9 +15,9 @@ export const Loader = styled.div`
   align-items: center;
 `;
 
-export const Banner = styled.div<{ bgPhoto: string }>`
+export const Banner = styled.div<{ bgPhoto: string; height: string }>`
   display: flex;
-  height: 70vh;
+  height: ${(props) => props.height};
   flex-direction: column;
   justify-content: center;
   padding: 60px;
@@ -76,6 +76,7 @@ function Home() {
           {/* Top Banner */}
           <Banner
             bgPhoto={makeImagePath(nowData?.results[0].backdrop_path || "")}
+            height="70vh"
           >
             <Title>{nowData?.results[0].title}</Title>
             <Overview>{nowData?.results[0].overview}</Overview>

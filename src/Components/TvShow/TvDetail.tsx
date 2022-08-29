@@ -2,9 +2,9 @@ import { useScroll, useTransform } from "framer-motion";
 import { useQuery } from "react-query";
 import { useMatch, useNavigate } from "react-router-dom";
 import {
-  getTvShowsDetail,
   IGetTvShowsVideo,
   IGetTvShowsDetail,
+  getTvShowsDetail,
   getTvShowsVideo,
 } from "../../api/tvShowsApi";
 

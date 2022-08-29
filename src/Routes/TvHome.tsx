@@ -27,6 +27,7 @@ function TvHome() {
           {/* Top Banner */}
           <Banner
             bgPhoto={makeImagePath(onAirData?.results[0].backdrop_path || "")}
+            height="70vh"
           >
             <Title>{onAirData?.results[0].name}</Title>
             <Overview>{onAirData?.results[0].overview}</Overview>
