@@ -67,7 +67,7 @@
 
 ## Project Review
 
-- First of all, the great advantage of react-query is really fast and useful when I fetch data with a few lines of code. 
+- First of all, the great advantage of react-query was really fast and useful when I fetched data with a few lines of code. 
 - It reduces the amount of code instead of using the useState several times. 
 - Especially caching feature, which allowed me to load and utilize data fetched by API.
 - Through the experience, I got used to designing animation with the framer-motion library; It helped me to build a lively web.
