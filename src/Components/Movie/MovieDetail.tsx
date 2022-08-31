@@ -163,7 +163,7 @@ function MovieDetail({ kind, id }: IProps) {
                           ></iframe>
                         </>
                       ) : (
-                        <Title> No Trailer Available</Title>
+                        <Title>No Trailer Available</Title>
                       )}
                     </Trailer>
                   </Data>
