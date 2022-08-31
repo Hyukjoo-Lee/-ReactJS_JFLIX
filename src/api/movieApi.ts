@@ -22,6 +22,7 @@ export interface IMovieTv {
   backdrop_path: string;
   overview: string;
   release_date: string;
+  first_air_date: string;
   poster_path: string;
   original_title: string;
   title?: string;
@@ -35,7 +36,7 @@ export interface IGetMovies {
     minimum: string;
   };
   page: number;
-  results: IMovie[];
+  results: IMovieTv[];
   total_pages: number;
   total_results: number;
 }

@@ -1,4 +1,5 @@
 import { useLocation } from "react-router";
+import { useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
 import { getSearch, IGetMovies } from "../api/movieApi";
 import { Banner, Loader, Wrapper } from "./MovieHome";
@@ -7,7 +8,6 @@ import SearchSlider from "../Components/Search/SearchSlider";
 
 const SearchContainer = styled.div`
   width: 100%;
-  height: 100%;
   padding: 20px;
   margin: 1.8vw;
   display: inline-block;
@@ -42,13 +42,14 @@ const RecommendContents = styled.li`
   }
 `;
 
-const ResultsHeader = styled.div`
+export const ResultHeader = styled.div`
   padding-top: 40px;
   padding-bottom: 40px;
   font-size: 1.4vw;
 `;
 
 function Search() {
+  const navigate = useNavigate();
   const location = useLocation();
   const keyword = new URLSearchParams(location.search).get("keyword");
 
@@ -70,7 +71,13 @@ function Search() {
       return false;
     }
   };
+  const onMovieClick = (movieId: number) => {
+    navigate(`/movies/${movieId}`);
+  };
 
+  const onTvshowClick = (tvshowId: number) => {
+    navigate(`/tv/${tvshowId}`);
+  };
   return (
     <Wrapper>
       {searchMovieLoading && searchTvShowLoading ? (
@@ -84,15 +91,19 @@ function Search() {
               <RecommendLabel> Movies Related To: </RecommendLabel>
               <RecommendList>
                 {isOverTenResult(searchMovie?.total_results!)
-                  ? searchMovie?.results
-                      .slice(10)
-                      .map((movie) => (
-                        <RecommendContents key={movie.id}>
-                          {movie.title}
-                        </RecommendContents>
-                      ))
+                  ? searchMovie?.results.slice(10).map((movie) => (
+                      <RecommendContents
+                        key={movie.id}
+                        onClick={() => onMovieClick(movie.id)}
+                      >
+                        {movie.title}
+                      </RecommendContents>
+                    ))
                   : searchMovie?.results.map((movie) => (
-                      <RecommendContents key={movie.id}>
+                      <RecommendContents
+                        key={movie.id}
+                        onClick={() => onMovieClick(movie.id)}
+                      >
                         {movie.title}
                       </RecommendContents>
                     ))}
@@ -104,24 +115,27 @@ function Search() {
               <RecommendLabel>TV Shows Related To: </RecommendLabel>
               <RecommendList>
                 {isOverTenResult(searchTvShow?.total_results!)
-                  ? searchTvShow?.results
-                      .slice(10)
-                      .map((tvshows) => (
-                        <RecommendContents key={tvshows.id}>
-                          {tvshows.name}
-                        </RecommendContents>
-                      ))
+                  ? searchTvShow?.results.slice(10).map((tvshows) => (
+                      <RecommendContents
+                        key={tvshows.id}
+                        onClick={() => onTvshowClick(tvshows.id)}
+                      >
+                        {tvshows.name}
+                      </RecommendContents>
+                    ))
                   : searchTvShow?.results.map((tvshows) => (
-                      <RecommendContents key={tvshows.id}>
+                      <RecommendContents
+                        key={tvshows.id}
+                        onClick={() => onTvshowClick(tvshows.id)}
+                      >
                         {tvshows.name}
                       </RecommendContents>
                     ))}
               </RecommendList>
             </RecommendContainer>
-
-            <ResultsHeader>{keyword} Search Results</ResultsHeader>
-            <SearchSlider data={searchMovie}></SearchSlider>
-            {/* <SearchSlider data={searchTvShow}></SearchSlider> */}
+            <ResultHeader>{keyword} Results </ResultHeader>
+            {/* Slider Movies & TV Shows  */}
+            <SearchSlider data={searchMovie} data_2={searchTvShow} />
           </SearchContainer>
         </>
       )}

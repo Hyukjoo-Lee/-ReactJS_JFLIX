@@ -19,11 +19,11 @@ export const SliderTitle = styled.h2`
   margin-bottom: 20px;
 `;
 
-export const Row = styled(motion.div)`
+export const Row = styled(motion.div)<{ position: string }>`
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(6, 1fr);
-  position: absolute;
+  position: ${(props) => props.position};
   width: 93%;
 `;
 
@@ -208,6 +208,7 @@ function MovieSlider({ kind, data }: IProps) {
           custom={isNext}
         >
           <Row
+            position="absolute"
             variants={RowVariants}
             initial="hidden"
             animate="visible"

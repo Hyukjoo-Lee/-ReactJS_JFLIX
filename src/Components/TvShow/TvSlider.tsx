@@ -108,6 +108,7 @@ function TvSlider({ kind, data }: IProps) {
           custom={isNext}
         >
           <Row
+            position="absolute"
             variants={RowVariants}
             initial="hidden"
             animate="visible"

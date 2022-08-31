@@ -162,7 +162,9 @@ function MovieDetail({ kind, id }: IProps) {
                             src={`https://www.youtube.com/embed/${videoData.results[0].key}`}
                           ></iframe>
                         </>
-                      ) : null}
+                      ) : (
+                        <Title> No Trailer Available</Title>
+                      )}
                     </Trailer>
                   </Data>
                 </Content>
