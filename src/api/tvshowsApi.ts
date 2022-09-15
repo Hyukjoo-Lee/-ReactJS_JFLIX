@@ -60,10 +60,10 @@ export interface IGetTvShowsVideo {
       {
         name: string,
         key: string,
-        official: true,
       }
     ]
   }
+
 
 export async function getTvShows(kind: string) {
     return await (
@@ -87,3 +87,10 @@ export async function getTvShowsVideo(id: string) {
     ).json();
   }
 
+  export async function getTvShowsReview(id: string) {
+    return await (
+      await fetch(
+        `${BASE_PATH}/tv/${id}/reviews?api_key=${API_KEY}&language=${LANG}`
+      )
+    ).json();
+  }

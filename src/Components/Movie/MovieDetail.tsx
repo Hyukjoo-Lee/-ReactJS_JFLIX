@@ -7,6 +7,8 @@ import {
   IGetMovieVideo,
   IGetMovieDetail,
   getMovieVideo,
+  getMovieReview,
+  IGetMovieReview,
 } from "../../api/movieApi";
 import { makeImagePath } from "../../utils";
 
@@ -34,6 +36,19 @@ export const Content = styled.div`
   display: flex;
   width: 100%;
   height: 90%;
+`;
+
+export const CloseButton = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding-right: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+  img {
+    height: 36px;
+    width: 36px;
+  }
 `;
 
 export const ModalCover = styled.div`
@@ -91,6 +106,13 @@ export const Title = styled.h3`
   margin-bottom: 10px;
 `;
 
+const Review = styled.div`
+  padding: 10px;
+  font-size: 30px;
+`;
+
+export const closeBtn = require(`../../assets/images/closeBtn.png`);
+
 export interface IProps {
   kind: string;
   id: string;
@@ -111,7 +133,7 @@ function MovieDetail({ kind, id }: IProps) {
   const bigMovieMatch = useMatch(`/movies/:movieId`);
   const { scrollY } = useScroll();
 
-  const onOverlayClicked = () => {
+  const onCloseButtonClicked = () => {
     navigate(-1);
   };
 
@@ -121,17 +143,16 @@ function MovieDetail({ kind, id }: IProps) {
     <>
       {bigMovieMatch ? (
         <>
-          <Overlay
-            onClick={onOverlayClicked}
-            exit={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-          >
+          <Overlay exit={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <ModalContainer
               style={{ top: setScrollY }}
               layoutId={bigMovieMatch.params.movieId}
             >
               {detailData && (
                 <Content>
+                  <CloseButton>
+                    <img src={closeBtn} onClick={onCloseButtonClicked} />
+                  </CloseButton>
                   <ModalCover
                     style={{
                       backgroundImage: `url( ${makeImagePath(
@@ -166,6 +187,7 @@ function MovieDetail({ kind, id }: IProps) {
                         <Title>No Trailer Available</Title>
                       )}
                     </Trailer>
+                    <Review>Explore Reviews</Review>
                   </Data>
                 </Content>
               )}

@@ -42,57 +42,82 @@ export interface IGetMovies {
 }
 
 export interface IGetMovieDetail {
-    id: number;
-    backdrop_path: string;
-    poster_path: string;
-    title: string;
-    original_title: string;
-    overview: string;
-    vote_average: number;
-    release_date: string;
-    
-    genres: [
-      {
-        id: number;
-        name: string;
-      }
-    ];
-    tagline: string;
-  }
+  id: number;
+  backdrop_path: string;
+  poster_path: string;
+  title: string;
+  original_title: string;
+  overview: string;
+  vote_average: number;
+  release_date: string;
 
-  
+  genres: [
+    {
+      id: number;
+      name: string;
+    }
+  ];
+  tagline: string;
+}
+
 export interface IGetMovieVideo {
-    id: string,
-    results: [
-      {
-        name: string,
-        key: string,
-        official: true,
-      }
-    ]
-  }
+  id: string;
+  results: [
+    {
+      name: string;
+      key: string;
+    }
+  ];
+}
+
+export interface IGetMovieReview {
+  id: string;
+  results: [
+    {
+      author: string;
+      author_details: {
+        username: string;
+        avatar_path: string;
+        rating: number;
+      };
+      content: string;
+      created_at: string;
+      updated_at: string;
+      url: string;
+    }
+  ],
+  total_results: number;
+}
 
 export async function getMovies(kind: string) {
-    return await (
-      await fetch(
-        `${BASE_PATH}/movie/${kind}?api_key=${API_KEY}&language=${LANG}&page=${PAGE}&region=${REGION}`
-      )
-    ).json();
-  }
+  return await (
+    await fetch(
+      `${BASE_PATH}/movie/${kind}?api_key=${API_KEY}&language=${LANG}&page=${PAGE}&region=${REGION}`
+    )
+  ).json();
+}
 
 export async function getMovieDetail(id: string) {
-    return await (
-      await fetch(`${BASE_PATH}/movie/${id}?api_key=${API_KEY}&language=${LANG}`)
-    ).json();
-  }
+  return await (
+    await fetch(`${BASE_PATH}/movie/${id}?api_key=${API_KEY}&language=${LANG}`)
+  ).json();
+}
 
 export async function getMovieVideo(id: string) {
-    return await (
-      await fetch(
-        `${BASE_PATH}/movie/${id}/videos?api_key=${API_KEY}&language=${LANG}`
-      )
-    ).json();
-  }
+  return await (
+    await fetch(
+      `${BASE_PATH}/movie/${id}/videos?api_key=${API_KEY}&language=${LANG}`
+    )
+  ).json();
+}
+
+export async function getMovieReview(id: string) {
+  return await (
+    await fetch(
+      `${BASE_PATH}/movie/${id}/reviews?api_key=${API_KEY}&language=${LANG}`
+    )
+  ).json();
+}
 
 // Search API (Both for movie and tvshows)
 export function getSearch(type: string, query: string | null) {

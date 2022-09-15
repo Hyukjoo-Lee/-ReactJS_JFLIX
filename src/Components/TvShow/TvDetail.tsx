@@ -10,6 +10,8 @@ import {
 
 import { makeImagePath } from "../../utils";
 import {
+  closeBtn,
+  CloseButton,
   Content,
   Data,
   IProps,
@@ -42,7 +44,7 @@ function TvDetail({ kind, id }: IProps) {
   const { scrollY } = useScroll();
   const setScrollY = useTransform(scrollY, (val) => val + 65);
 
-  const onOverlayClicked = () => {
+  const onCloseButtonClicked = () => {
     navigate(-1);
   };
 
@@ -50,17 +52,16 @@ function TvDetail({ kind, id }: IProps) {
     <>
       {bigTvMatch ? (
         <>
-          <Overlay
-            onClick={onOverlayClicked}
-            exit={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-          >
+          <Overlay exit={{ opacity: 0 }} animate={{ opacity: 1 }}>
             <ModalContainer
               style={{ top: setScrollY }}
               layoutId={bigTvMatch.params.tvShowId}
             >
               {detailData && (
                 <Content>
+                  <CloseButton onClick={onCloseButtonClicked}>
+                    <img src={closeBtn} />
+                  </CloseButton>
                   <ModalCover
                     style={{
                       backgroundImage: `url( ${makeImagePath(
