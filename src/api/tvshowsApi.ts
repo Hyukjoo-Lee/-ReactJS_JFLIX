@@ -54,8 +54,8 @@ export interface IGetTvShowsDetail {
   }
 
   
-export interface IGetTvShowsVideo {
-    id: string,
+export interface IGetTvShowsDetail {
+    id: number,
     results: [
       {
         name: string,

@@ -1,8 +1,8 @@
 import { useScroll, useTransform } from "framer-motion";
 import { useQuery } from "react-query";
 import { useMatch, useNavigate } from "react-router-dom";
+import { IGetMovieVideo } from "../../api/movieApi";
 import {
-  IGetTvShowsVideo,
   IGetTvShowsDetail,
   getTvShowsDetail,
   getTvShowsVideo,
@@ -32,7 +32,7 @@ function TvDetail({ kind, id }: IProps) {
     () => getTvShowsDetail(id)
   );
 
-  const { data: videoData } = useQuery<IGetTvShowsVideo>(
+  const { data: videoData } = useQuery<IGetMovieVideo>(
     ["tvshows", `${kind}_video`],
     () => getTvShowsVideo(id)
   );
