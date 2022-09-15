@@ -8,8 +8,8 @@ import { ReactQueryDevtools } from "react-query/devtools";
 function App() {
   return (
     <>
-      {/* <BrowserRouter basename={process.env.PUBLIC_URL}> */}
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
+        {/* <BrowserRouter> */}
         <Header />
         <Routes>
           <Route path="/" element={<MovieHome />}>
