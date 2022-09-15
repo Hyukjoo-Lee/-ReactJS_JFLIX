@@ -64,6 +64,24 @@ export interface IGetTvShowsDetail {
     ]
   }
 
+  export interface IGetTvShowsReview {
+    id: string;
+    results: [
+      {
+        author: string;
+        author_details: {
+          username: string;
+          avatar_path: string;
+          rating: number;
+        };
+        content: string;
+        created_at: string;
+        updated_at: string;
+        url: string;
+      }
+    ],
+    total_results: number;
+  }
 
 export async function getTvShows(kind: string) {
     return await (

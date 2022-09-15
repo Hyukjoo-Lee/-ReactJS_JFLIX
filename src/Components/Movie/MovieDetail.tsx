@@ -7,10 +7,9 @@ import {
   IGetMovieVideo,
   IGetMovieDetail,
   getMovieVideo,
-  getMovieReview,
-  IGetMovieReview,
 } from "../../api/movieApi";
 import { makeImagePath } from "../../utils";
+import MovieReview from "./MovieReview";
 
 export const Overlay = styled(motion.div)`
   position: absolute;
@@ -106,15 +105,10 @@ export const Title = styled.h3`
   margin-bottom: 10px;
 `;
 
-const Review = styled.div`
-  padding: 10px;
-  font-size: 30px;
-`;
-
 export const closeBtn = require(`../../assets/images/closeBtn.png`);
 
 export interface IProps {
-  kind: string;
+  kind?: string;
   id: string;
 }
 
@@ -187,7 +181,7 @@ function MovieDetail({ kind, id }: IProps) {
                         <Title>No Trailer Available</Title>
                       )}
                     </Trailer>
-                    <Review>Explore Reviews</Review>
+                    <MovieReview id={id}></MovieReview>
                   </Data>
                 </Content>
               )}

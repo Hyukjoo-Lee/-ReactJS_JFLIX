@@ -25,6 +25,7 @@ import {
   Title,
   Trailer,
 } from "../Movie/MovieDetail";
+import TvShowReview from "./TvReview";
 
 function TvDetail({ kind, id }: IProps) {
   const { data: detailData } = useQuery<IGetTvShowsDetail>(
@@ -94,6 +95,7 @@ function TvDetail({ kind, id }: IProps) {
                         </>
                       ) : null}
                     </Trailer>
+                    <TvShowReview id={id}></TvShowReview>
                   </Data>
                 </Content>
               )}
