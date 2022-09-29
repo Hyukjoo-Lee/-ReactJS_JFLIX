@@ -51,7 +51,7 @@ export const CloseButton = styled.div`
 `;
 
 export const ModalCover = styled.div`
-  width: 50%;
+  width: 40%;
   height: 100%;
   background-size: cover;
   background-position: center;
