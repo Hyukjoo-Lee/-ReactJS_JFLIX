@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 import { getTvShowsReview, IGetTvShowsReview } from "../../api/tvShowsApi";
 import { IProps } from "../Movie/MovieDetail";
 import {
-  NoReviews,
+  NoContents,
   Review,
   ReviewContainer,
   ReviewList,
@@ -28,7 +28,7 @@ function TvShowReview({ id }: IProps) {
             ))}
           </ReviewList>
         ) : (
-          <NoReviews>No Reviews Available</NoReviews>
+          <NoContents>No Reviews Available</NoContents>
         )}
       </ReviewContainer>
     </>

@@ -11,7 +11,7 @@ export const ReviewTitle = styled.h1`
   font-size: 32px;
 `;
 
-export const NoReviews = styled.h1`
+export const NoContents = styled.h1`
   font-size: 20px;
   color: red;
 `;
@@ -53,7 +53,7 @@ function MovieReview({ id }: IProps) {
             ))}
           </ReviewList>
         ) : (
-          <NoReviews>No Reviews Available</NoReviews>
+          <NoContents>No Reviews Available</NoContents>
         )}
       </ReviewContainer>
     </>

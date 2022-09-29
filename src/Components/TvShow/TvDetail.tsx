@@ -25,6 +25,7 @@ import {
   Title,
   Trailer,
 } from "../Movie/MovieDetail";
+import { NoContents } from "../Movie/MovieReview";
 import TvShowReview from "./TvReview";
 
 function TvDetail({ kind, id }: IProps) {
@@ -38,6 +39,7 @@ function TvDetail({ kind, id }: IProps) {
     () => getTvShowsVideo(id)
   );
 
+  console.log(videoData);
   const navigate = useNavigate();
 
   const bigTvMatch = useMatch(`/tv/:tvShowId`);
@@ -48,8 +50,6 @@ function TvDetail({ kind, id }: IProps) {
   const onCloseButtonClicked = () => {
     navigate(-1);
   };
-
-  console.log(videoData?.results[0]);
 
   return (
     <>
@@ -86,7 +86,7 @@ function TvDetail({ kind, id }: IProps) {
                     </ReleaseDate>
                     <ModalOverview>{detailData.overview}</ModalOverview>
                     <Trailer>
-                      {videoData?.results[0].key ? (
+                      {videoData?.results[0] ? (
                         <>
                           <Title>Trailer</Title>
                           <iframe
@@ -95,7 +95,12 @@ function TvDetail({ kind, id }: IProps) {
                             src={`https://www.youtube.com/embed/${videoData.results[0].key}`}
                           ></iframe>
                         </>
-                      ) : null}
+                      ) : (
+                        <>
+                          <Title>Trailer</Title>
+                          <NoContents>No Trailer Available</NoContents>
+                        </>
+                      )}
                     </Trailer>
                     <TvShowReview id={id}></TvShowReview>
                   </Data>
