@@ -49,6 +49,8 @@ function TvDetail({ kind, id }: IProps) {
     navigate(-1);
   };
 
+  console.log(videoData?.results[0]);
+
   return (
     <>
       {bigTvMatch ? (
@@ -84,7 +86,7 @@ function TvDetail({ kind, id }: IProps) {
                     </ReleaseDate>
                     <ModalOverview>{detailData.overview}</ModalOverview>
                     <Trailer>
-                      {videoData?.results ? (
+                      {videoData?.results[0].key ? (
                         <>
                           <Title>Trailer</Title>
                           <iframe

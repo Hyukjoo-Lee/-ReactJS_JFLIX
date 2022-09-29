@@ -74,6 +74,7 @@ export interface IGetMovieReview {
   id: string;
   results: [
     {
+      key: number;
       author: string;
       author_details: {
         username: string;

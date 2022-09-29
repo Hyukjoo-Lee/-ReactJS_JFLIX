@@ -45,13 +45,14 @@ export const RowVariants = {
 
 export const Box = styled(motion.div)<{ bgphoto: string }>`
   background-color: white;
-  height: 200px;
+  min-height: 200px;
+  max-height: 200px;
+  min-width: 200px;
+  max-width: 200px;
   border-radius: 5%;
   background-image: url(${(props) => props.bgphoto});
-  background-size: 255px 200px;
+  background-size: 200px 200px;
   background-position: center center;
-  color: red;
-  font-size: 30px;
   cursor: pointer;
 
   &:first-child {

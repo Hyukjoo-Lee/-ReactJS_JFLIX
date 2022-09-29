@@ -46,8 +46,8 @@ function MovieReview({ id }: IProps) {
         <ReviewTitle> Reviews </ReviewTitle>
         {reviewData?.total_results !== 0 ? (
           <ReviewList>
-            {reviewData?.results.slice(0, 4).map((review) => (
-              <Review>
+            {reviewData?.results.slice(0, 4).map((review, index) => (
+              <Review key={index}>
                 <a href={review.url}>{review.author}</a>
               </Review>
             ))}
