@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.js": "/ReactJS_JFLIX/static/js/main.9f9662fa.js",
+    "main.js": "/ReactJS_JFLIX/static/js/main.a5c01fbb.js",
     "static/media/closeBtn.png": "/ReactJS_JFLIX/static/media/closeBtn.ca23c7b24eda60c13963.png",
     "index.html": "/ReactJS_JFLIX/index.html",
-    "main.9f9662fa.js.map": "/ReactJS_JFLIX/static/js/main.9f9662fa.js.map"
+    "main.a5c01fbb.js.map": "/ReactJS_JFLIX/static/js/main.a5c01fbb.js.map"
   },
   "entrypoints": [
-    "static/js/main.9f9662fa.js"
+    "static/js/main.a5c01fbb.js"
   ]
 }
